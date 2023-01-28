@@ -37,8 +37,7 @@ class Result {
       if(loc>-1){
         cnt++;
         for(int j=1;j<P.size();j++){
-            i++;
-            String gStr = G.get(i).substring(loc, loc+pLen);
+            String gStr = G.get(i+j).substring(loc, loc+pLen);
             if(gStr.equals(P.get(j))){
               cnt++;
             }
