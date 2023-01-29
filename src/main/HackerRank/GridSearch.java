@@ -8,6 +8,7 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * 2시간 소요함.
+ * 참고 코드: https://pink-rabbit.tistory.com/5
  */
 class Result {
 
@@ -26,45 +27,50 @@ class Result {
     // P.size() == r, P[0].length() == c
     String answer = "NO"; //DEFAULT IS NO;
 
-    for(int i=0;i<=G.size()-P.size();i++){
-      int cnt = 0;
-      String current = G.get(i);
-      //Search for the length of P.get(0) (targetRange)
-      int pLen = P.get(0).length();
-      int loc = current.indexOf(P.get(0));
-      //check whether the first line of P is included in G
-      //if loc<=-1, search next line.
-      if(loc>-1){
-        cnt++;
-        for(int j=1;j<P.size();j++){
-            String gStr = G.get(i+j).substring(loc, loc+pLen);
-            if(gStr.equals(P.get(j))){
-              cnt++;
+    for (int i = 0; i <= G.size() - P.size(); i++) {
+      if (G.get(i).indexOf(P.get(0)) > -1) {
+        //k will move G.column - P.column
+        //substring(int begin Index) == substring(begin index, end of the string)
+        for (int k = 0; k <= G.get(i).length() - P.get(0).length(); k++) {
+          int chk = G.get(i).substring(k).indexOf(P.get(0));
+          //when k==0 & if chk == -1, the string does not include the P.get(0) at all.
+          //when k ==0 & chk != -1, string includes P.get(0) somewhere.
+          //Therefore, needs to search the next Line
+          if (chk == -1) {
+            break;
+          } else {
+            int cnt = 0;
+            //search the range of P size in G.
+            //will exit this loop and increase k if !GStr.equals
+            for (int j = 0; j < P.size(); j++) {
+              String Gstr = G.get(i + j).substring(k, k + P.get(j).length());
+              if (Gstr.equals(P.get(j))) {
+                cnt++;
+              }
             }
-            else {
-              break;
+            if (cnt == P.size()) {
+              answer = "YES";
+              return answer;
             }
-        }
 
-        if(cnt == P.size()){
-          answer = "YES";
-          return answer;
+          }
         }
       }
-
     }
     return answer;
   }
 
+
   public static void main(String[] args) {
     Result T = new Result();
-    List<String> list = Arrays.asList(new String[]{"7283455864", "6731158619", "8988242643", "3830589324",
-        "2229505813",
-        "5633845374",
-        "6473530293",
-        "7053106601",
-        "0834282956",
-        "4607924137"});
+    List<String> list = Arrays.asList(
+        new String[]{"7283455864", "6731158619", "8988242643", "3830589324",
+            "2229505813",
+            "5633845374",
+            "6473530293",
+            "7053106601",
+            "0834282956",
+            "4607924137"});
 
     List<String> target = Arrays.asList(new String[]{"9505", "3845", "3530"});
     System.out.println(T.gridSearch(list, target));
