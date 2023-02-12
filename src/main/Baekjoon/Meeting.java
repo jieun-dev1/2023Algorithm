@@ -38,18 +38,18 @@ class Room {
     Collections.sort(list);
 
     //답을 찾는 부분.
-    int temp = list.get(0).end; // 현재 끝나는 시간이 가장 빠른 노드의 (정렬 첫 번쨰 순서) 끝나는 시간. 이는 계속 갱신되는 값.
+    int temp = 0; // 현재 끝나는 시간이 가장 빠른 노드의 (정렬 첫 번쨰 순서) 끝나는 시간. 이는 계속 갱신되는 값.
     int answer = 0; //한 번의 순회를 통해서 얻어진 값.
-    for(int i=0;i<list.size();i++){
-      int count = 1; // count는 i마다 건다.
-      for(int j=i+1;j<list.size();j++){
+//    for(int i=0;i<list.size();i++){
+      int count = 0; // count는 i마다 건다.
+      for(int j=0;j<list.size();j++){
         if(list.get(j).start>=temp){ //현재 노드가 끝나는 시간보다, 다음 노드의 시작 시간이 빠르거나 같을 때.
           temp = list.get(j).end;
           count++;
         }
       }
-      answer = Math.max(count, answer); // 큰 값으로 업데이트.
+    System.out.println(count);
+
+//      answer = Math.max(count, answer); // 큰 값으로 업데이트.
     }
-    System.out.println(answer);
     }
-  }
