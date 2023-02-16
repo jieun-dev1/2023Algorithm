@@ -2,6 +2,7 @@ package main.Baekjoon;
 
 import java.util.Scanner;
 
+
 class Cutting {
 
   static int M; //가져가려고 하는 나무 길이
